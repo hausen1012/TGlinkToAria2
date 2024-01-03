@@ -1,7 +1,7 @@
 # 原项目介绍
 
-        原项目是**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**，这个项目是用于生成telegram文件直连的项目，将你需要下载的telegram文件转发给机器人，你就可以得到一个链接，访问链接就可以直接下载文件。
-        
+原项目是**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**，这个项目是用于生成telegram文件直连的项目，将你需要下载的telegram文件转发给机器人，你就可以得到一个链接，访问链接就可以直接下载文件。
+
 <h1 align="center">Telegram File Stream Bot</h1>
 <p align="center">
   <a href="https://github.com/EverythingSuckz/TG-FileStreamBot">
