@@ -1,3 +1,7 @@
+# 原项目介绍
+
+        原项目是**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**，这个项目是用于生成telegram文件直连的项目，将你需要下载的telegram文件转发给机器人，你就可以得到一个链接，访问链接就可以直接下载文件。
+        
 <h1 align="center">Telegram File Stream Bot</h1>
 <p align="center">
   <a href="https://github.com/EverythingSuckz/TG-FileStreamBot">
@@ -14,39 +18,6 @@
   </p>
 </p>
 
-<hr>
-
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-this-bot">About this Bot</a>
-      <ul>
-        <li><a href="#original-repository">Original Repository</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#how-to-make-your-own">How to make your own</a>
-      <ul>
-        <li><a href="#host-it-on-vps-or-locally">Run it in a VPS / local</a></li>
-        <li><a href="#deploy-using-docker">Deploy using Docker</a></li>
-      </ul>
-    </li>
-    <li><a href="#setting-up-things">Setting up things</a></li>
-    <ul>
-      <li><a href="#mandatory-vars">Mandatory Vars</a></li>
-      <li><a href="#optional-vars">Optional Vars</a></li>
-    </ul>
-    <li><a href="#how-to-use-the-bot">How to use the bot</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#contact-me">Contact me</a></li>
-    <li><a href="#credits">Credits</a></li>
-  </ol>
-</details>
-
-# 原项目介绍
-
-        原项目是**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**，这个项目是用于生成telegram文件直连的项目，将你需要下载的telegram文件转发给机器人，你就可以得到一个链接，访问链接就可以直接下载文件。
 
 
 # 本项目产生的原因
