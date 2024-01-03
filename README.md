@@ -1,8 +1,3 @@
-<hr>
-
-> [!WARNING]
-> This project is being rewritten to [golang](https://github.com/EverythingSuckz/TG-FileStreamBot/tree/golang).
-<hr>
 <h1 align="center">Telegram File Stream Bot</h1>
 <p align="center">
   <a href="https://github.com/EverythingSuckz/TG-FileStreamBot">
@@ -53,7 +48,6 @@
 
         原项目是**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**，这个项目是用于生成telegram文件直连的项目，将你需要下载的telegram文件转发给机器人，你就可以得到一个链接，访问链接就可以直接下载文件。
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c2a11bd-8d68-4694-b652-8713db82eddd/Untitled.png)
 
 # 本项目产生的原因
 
@@ -151,7 +145,6 @@ docker restart fsb
 1. .env文件中的 `PORT` ，不是`RPC_PORTS` 请看清楚！
 2. 修改部署容器的命令中的-p 而且是全部需要改！
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8ffdeb49-ceef-4c1e-b725-ee6e5f8d2d94/Untitled.png)
 
 例如您想使用1111端口，那么.**env修改成1111**，然后 **-p 1111:1111 \**
 
