@@ -49,212 +49,116 @@
   </ol>
 </details>
 
-## About This Bot
+# 原项目介绍
 
-<p align="center">
-    <a herf="https://github.com/EverythingSuckz/TG-FileStreamBot">
-        <img src="https://telegra.ph/file/a8bb3f6b334ad1200ddb4.png" height="100" width="100" alt="Telegram Logo">
-    </a>
-</p>
-<p align='center'>
-    This bot will give you stream links for Telegram files without the need of waiting till the download completes
-</p>
+        原项目是**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**，这个项目是用于生成telegram文件直连的项目，将你需要下载的telegram文件转发给机器人，你就可以得到一个链接，访问链接就可以直接下载文件。
 
-### Original Repository
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c2a11bd-8d68-4694-b652-8713db82eddd/Untitled.png)
 
-The main working part was taken from [Megatron](https://github.com/eyaadh/megadlbot_oss) and thanks to [eyaadh](https://github.com/eyaadh) for his awesome project.
+# 本项目产生的原因
 
-## How to make your own
+        本项目**[TGlinkToAria2](https://github.com/snakexgc/TGlinkToAria2)**是在**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**的基础上，增加了一个自动将生成的直链加入到aria2中进行下载的这一步，他产生的原因是在我的使用过程中，我每次都需要复制他给我生成的直连，然后手动发送到aria2控制机器人中进行下载，如果文件比较多，就要高强度重复复制，粘贴，发送的操作，而且有时候容易搞错，导致重复下载或者漏下载。
 
-Either you could locally host or deploy on ~~[Heroku](https://heroku.com)~~ Free tier is dead.
+        因此，我在想能不能直接让直链能够在生成后直接发送到aria2中下载，近几日在修复隔壁项目aria2bot的过程中，发现了一个很适合的python的库—aria2p，这个库非常的精简，很小的体积就能完成我需要的工作，于是我在查看了https://github.com/EverythingSuckz/TG-FileStreamBot的代码后，对代码做了适当修改，让他能够自动将连接加入到aria2中。
 
-### Host it on VPS or Locally
+# 区别
 
-```sh
-git clone https://github.com/EverythingSuckz/TG-FileStreamBot
-cd TG-FileStreamBot
-python3 -m venv ./venv
-. ./venv/bin/activate
-pip3 install -r requirements.txt
-python3 -m WebStreamer
+1. 加入自动添加aria2下载任务的功能
+
+本项目最大区别就是加入aria2的支持，所以新增了四个环境变量：
+
+```jsx
+ARIA2=True
+RPC_URLS=http://1.1.1.1
+RPC_PORTS=6800
+RPC_TOKENS=youraria2tocken
 ```
 
-and to stop the whole bot,
- do <kbd>CTRL</kbd>+<kbd>C</kbd>
+四个环境变量的解释
 
-> **If you wanna run this bot 24/7 on the VPS, follow thesesteps.**
-> ```sh
-> sudo apt install tmux -y
-> tmux
-> python3 -m WebStreamer
-> ```
-> now you can close the VPS and the bot will run on it.
+- 第一个是控制是否启用aria2的，如果不用aria2，那我建议您用原项目…
+- 第二个是你aria2的链接，请务必按格式更改
+- 第三个是aria2的对外监听端口，一般是6800
+- 第四个是aria2的秘钥
+1. 优化输出
+- 在没有启用aria2的时候，如果您坚持使用本项目，那么您得到的结果和官方返回基本一致，展示的链接是主链接，并且会提示没有启用aria2。
+- 如果启用了aria2，为了使展示更加美观，返回结果会变成短连接，长连接用link的形式隐藏，也可以直接访问，并切会有相应提示！
 
-### Deploy using Docker
-First clone the repository
-```sh
-git clone https://github.com/EverythingSuckz/TG-FileStreamBot
-cd TG-FileStreamBot
+# 部署
+
+## 安装docker
+
+```jsx
+curl -fsSL get.docker.com -o get-docker.sh&&sh get-docker.sh &&systemctl enable docker&&systemctl start docker
 ```
-then build the docker image
-```sh
+
+## 拉取仓库
+
+```jsx
+cd /root
+
+git clone https://github.com/snakexgc/TGlinkToAria2
+
+cd TGlinkToAria2
+```
+
+## 构建docker镜像
+
+```jsx
 docker build . -t stream-bot
 ```
-now create the `.env` file with your variables. and start your container:
-```sh
-docker run -d --restart unless-stopped --name fsb \
--v /PATH/TO/.env:/app/.env \
--p 8000:8000 \
-stream-bot
-```
 
-your `PORT` variable has to be consistent with the container's exposed port since it's used for URL generation. so remember if you changed the `PORT` variable your docker run command changes too. (example: `PORT=9000` -> `-p 9000:9000`)
+## 在`TGlinkToAria2` 文件下创建.env文件
 
-if you need to change the variables in `.env` file after your bot was already started, all you need to do is restart the container for the bot settings to get updated:
-```sh
-docker restart fsb
-```
+文件内容如下：
 
-### Deploy using docker-compose
-First install docker-compose. For debian based, run 
-```sh
-sudo apt install docker-compose -y
-```
-Afterwards, clone the repository
-```sh
-git clone https://github.com/EverythingSuckz/TG-FileStreamBot
-cd TG-FileStreamBot
-```
-No need to create .env file, just edit the variables in the docker-compose.yml
-
-Now run the compose file
-```sh
-sudo docker compose up -d
-```
-
-## Setting up things
-
-If you're locally hosting, create a file named `.env` in the root directory and add all the variables there.
-An example of `.env` file:
-
-```sh
+```jsx
 API_ID=452525
 API_HASH=esx576f8738x883f3sfzx83
 BOT_TOKEN=55838383:yourtbottokenhere
 MULTI_TOKEN1=55838383:yourfirstmulticlientbottokenhere
-MULTI_TOKEN2=55838383:yoursecondmulticlientbottokenhere
-MULTI_TOKEN3=55838383:yourthirdmulticlientbottokenhere
+ARIA2=True
+RPC_URLS=http://1.1.1.1
+RPC_PORTS=6800
+RPC_TOKENS=youraria2tocken
 BIN_CHANNEL=-100
 PORT=8080
 FQDN=yourserverip
 HAS_SSL=False
 ```
 
-### Mandatory Vars
-Before running the bot, you will need to set up the following mandatory variables:
+对于这些环境变量的意义，我想大家应该都懂，不懂可以看项目的[readme](https://github.com/snakexgc/TGlinkToAria2/blob/main/README.md)
 
-- `API_ID` : This is the API ID for your Telegram account, which can be obtained from my.telegram.org.
+## 创建容器
 
-- `API_HASH` : This is the API hash for your Telegram account, which can also be obtained from my.telegram.org.
+```jsx
+docker run -d --restart unless-stopped --name fsb \
+-v /root/TGlinkToAria2/.env:/app/.env \
+-p 8080:8080 \
+stream-bot
+```
 
-- `BOT_TOKEN` : This is the bot token for the Telegram Media Streamer Bot, which can be obtained from [@BotFather](https://telegram.dog/BotFather).
+        您的“PORT”变量必须与容器的公开端口一致，因为它用于生成URL。所以请记住，如果您更改了“PORT”变量，您的docker run命令也会更改。（例如：`PORT=9000`->`-p 9000:9000`）
 
-- `BIN_CHANNEL` :  This is the channel ID for the log channel where the bot will forward media messages and store these files to make the generated direct links work. To obtain a channel ID, create a new telegram channel (public or private), post something in the channel, forward the message to [@missrose_bot](https://telegram.dog/MissRose_bot) and **reply the forwarded message** with the /id command. Copy the forwarded channel ID and paste it into the this field.
+        如果您需要在bot启动后更改“.env”文件中的变量，您所需要做的就是重新启动容器以更新bot设置：
 
-### Optional Vars
-In addition to the mandatory variables, you can also set the following optional variables:
+```jsx
+docker restart fsb
+```
 
-- `ALLOWED_USERS`: The user Telegram IDs of users to which the bot only reply to.
-> **Note**
-> Leave this field empty and anyone will be able to use your bot instance.
-> You may also add multiple users by adding the IDs separated by comma (,)
+这里您需要注意，修改端口就需要一次修改两个地方的端口，而不是想之前的青龙之类的一样，只用修改启动命令，您需要修改
 
-- `HASH_LENGTH` : This is the custom hash length for generated URLs. The hash length must be greater than 5 and less than 64.
+1. .env文件中的 `PORT` ，不是`RPC_PORTS` 请看清楚！
+2. 修改部署容器的命令中的-p 而且是全部需要改！
 
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8ffdeb49-ceef-4c1e-b725-ee6e5f8d2d94/Untitled.png)
 
-- `SLEEP_THRESHOLD` : This sets the sleep threshold for flood wait exceptions that occur globally in the bot instance. Requests that raise flood wait exceptions below this threshold will be automatically invoked again after sleeping for the required amount of time. Flood wait exceptions requiring longer waiting times will be raised. The default value is 60 seconds. Better leave this field empty.
+例如您想使用1111端口，那么.**env修改成1111**，然后 **-p 1111:1111 \**
 
+# 结束
 
-- `WORKERS` : This sets the maximum number of concurrent workers for handling incoming updates. The default value is 3.
+        如果不出意外，您像机器人发送文件后，文件生成直链的同时就会同步将文件添加进入aria2中进行下载！
 
+# 项目最终目的
 
-- `PORT` : This sets the port that your webapp will listen to. The default value is 8080.
-
-
-- `WEB_SERVER_BIND_ADDRESS` : This sets your server bind address. The default value is 0.0.0.0.
-
-- `NO_PORT` : This can be either True or False. If set to True, the port will not be displayed.
-> **Note**
-> To use this setting, you must point your `PORT` to 80 for HTTP protocol or to 443 for HTTPS protocol to make the generated links work.
-
-- `FQDN` :  A Fully Qualified Domain Name if present. Defaults to `WEB_SERVER_BIND_ADDRESS`
-
-- `HAS_SSL` : This can be either True or False. If set to True, the generated links will be in HTTPS format.
-
-- `KEEP_ALIVE`: If you want to make the server ping itself every `PING_INTERVAL` seconds to avoid sleeping. Helpful in PaaS Free tiers. Defaults to `False`
-
-- `PING_INTERVAL` : The time in ms you want the servers to be pinged each time to avoid sleeping (If you're on some PaaS). Defaults to `1200` or 20 minutes.
-
-- `USE_SESSION_FILE` : Use session files for client(s) rather than storing the pyrogram sqlite database in the memory
-
-### For making use of Multi-Client support
-
-> **Note**
-> What it multi-client feature and what it does? <br>
-> This feature shares the Telegram API requests between other bots to avoid getting floodwaited (A kind of rate limiting that Telegram does in the backend to avoid flooding their servers) and to make the server handle more requests. <br>
-
-To enable multi-client, generate new bot tokens and add it as your environmental variables with the following key names. 
-
-`MULTI_TOKEN1`: Add your first bot token here.
-
-`MULTI_TOKEN2`: Add your second bot token here.
-
-you may also add as many as bots you want. (max limit is not tested yet)
-`MULTI_TOKEN3`, `MULTI_TOKEN4`, etc.
-
-> **Warning**
-> Don't forget to add all these bots to the `BIN_CHANNEL` for the proper functioning
-
-## How to use the bot
-
-> **Warning**
-> Before using the  bot, don't forget to add all the bots (multi-client ones too) to the `BIN_CHANNEL` as an admin
- 
-`/start` : To check if the bot is alive or not.
-
-To get an instant stream link, just forward any media to the bot and boom, the bot instantly replies a direct link to that Telegram media message.
-
-## FAQ
-
-- How long the links will remain valid or is there any expiration time for the links generated by the bot?
-> The links will will be valid as longs as your bot is alive and you haven't deleted the log channel.
-
-## Contributing
-
-Feel free to contribute to this project if you have any further ideas
-
-## Contact me
-
-[![Telegram Channel](https://img.shields.io/static/v1?label=Join&message=Telegram%20Channel&color=blueviolet&style=for-the-badge&logo=telegram&logoColor=violet)](https://xn--r1a.click/wrench_labs)
-[![Telegram Group](https://img.shields.io/static/v1?label=Join&message=Telegram%20Group&color=blueviolet&style=for-the-badge&logo=telegram&logoColor=violet)](https://xn--r1a.click/AlteredVoid)
-
-You can contact either via my [Telegram Group](https://xn--r1a.click/AlteredVoid) ~~or you can PM me on [@EverythingSuckz](https://xn--r1a.click/EverythingSuckz)~~
-
-
-## Credits
-
-- Me
-- [eyaadh](https://github.com/eyaadh) for his awesome [Megatron Bot](https://github.com/eyaadh/megadlbot_oss).
-- [BlackStone](https://github.com/eyMarv) for adding multi-client support.
-- [Dan Tès](https://telegram.dog/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
-- [TheHamkerCat](https://github.com/TheHamkerCat)
-
-## Copyright
-
-Copyright (C) 2023 [EverythingSuckz](https://github.com/EverythingSuckz) under [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html).
-
-TG-FileStreamBot is Free Software: You can use, study share and improve it at your
-will. Specifically you can redistribute and/or modify it under the terms of the
-[GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) as
-published by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version. 
+        如果有时不时瞅一眼的朋友应该发现了，之前我修改了aria2bot这个项目，最近有修改了这个项目，我最终的目的是**将这两个项目合并，并且加入rclone的功能**，只不过由于水平问题，目前还不能实现这些功能，只能先这样使用了，耐心等待吧！
