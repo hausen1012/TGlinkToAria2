@@ -35,6 +35,6 @@ class Var(object):
     USE_SESSION_FILE = str(environ.get("USE_SESSION_FILE", "0").lower()) in ("1", "true", "t", "yes", "y")
     ALLOWED_USERS = [x.strip("@ ") for x in str(environ.get("ALLOWED_USERS", "") or "").split(",") if x.strip("@ ")]
     ARIA2 = bool(environ.get("ARIA2"))
-    RPC_URLS = str(environ.get("API_HASH"))
+    RPC_URLS = str(environ.get("RPC_URLS"))
     RPC_PORTS = int(environ.get("RPC_PORTS"))
     RPC_TOKENS = str(environ.get("RPC_TOKENS"))
