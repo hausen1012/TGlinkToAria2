@@ -1,7 +1,5 @@
 # 原项目介绍
-
 原项目是[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)，这个项目是用于生成telegram文件直连的项目，将你需要下载的telegram文件转发给机器人，你就可以得到一个链接，访问链接就可以直接下载文件。
-
 <h1 align="center">Telegram File Stream Bot</h1>
 <p align="center">
   <a href="https://github.com/EverythingSuckz/TG-FileStreamBot">
@@ -21,10 +19,8 @@
 
 
 # 本项目产生的原因
-
-        本项目**[TGlinkToAria2](https://github.com/snakexgc/TGlinkToAria2)**是在**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**的基础上，增加了一个自动将生成的直链加入到aria2中进行下载的这一步，他产生的原因是在我的使用过程中，我每次都需要复制他给我生成的直连，然后手动发送到aria2控制机器人中进行下载，如果文件比较多，就要高强度重复复制，粘贴，发送的操作，而且有时候容易搞错，导致重复下载或者漏下载。
-
-        因此，我在想能不能直接让直链能够在生成后直接发送到aria2中下载，近几日在修复隔壁项目aria2bot的过程中，发现了一个很适合的python的库—aria2p，这个库非常的精简，很小的体积就能完成我需要的工作，于是我在查看了https://github.com/EverythingSuckz/TG-FileStreamBot的代码后，对代码做了适当修改，让他能够自动将连接加入到aria2中。
+  本项目**[TGlinkToAria2](https://github.com/snakexgc/TGlinkToAria2)**是在**[TG-FileStreamBot](https://github.com/EverythingSuckz/TG-FileStreamBot)**的基础上，增加了一个自动将生成的直链加入到aria2中进行下载的这一步，他产生的原因是在我的使用过程中，我每次都需要复制他给我生成的直连，然后手动发送到aria2控制机器人中进行下载，如果文件比较多，就要高强度重复复制，粘贴，发送的操作，而且有时候容易搞错，导致重复下载或者漏下载。
+  因此，我在想能不能直接让直链能够在生成后直接发送到aria2中下载，近几日在修复隔壁项目aria2bot的过程中，发现了一个很适合的python的库—aria2p，这个库非常的精简，很小的体积就能完成我需要的工作，于是我在查看了https://github.com/EverythingSuckz/TG-FileStreamBot的代码后，对代码做了适当修改，让他能够自动将连接加入到aria2中。
 
 # 区别
 
