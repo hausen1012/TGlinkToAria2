@@ -32,13 +32,14 @@
 
 1. 加入自动添加aria2下载任务的功能
 
-本项目最大区别就是加入aria2的支持，所以新增了四个环境变量：
+本项目最大区别就是加入aria2的支持，所以新增了五个环境变量：
 
 ```jsx
 ARIA2=True
 RPC_URLS=http://1.1.1.1
 RPC_PORTS=6800
 RPC_TOKENS=youraria2tocken
+DOWNLOAD_DIR=/downloads
 ```
 
 四个环境变量的解释
@@ -47,6 +48,7 @@ RPC_TOKENS=youraria2tocken
 - 第二个是你aria2的链接，请务必按格式更改
 - 第三个是aria2的对外监听端口，一般是6800
 - 第四个是aria2的秘钥
+- 第五个是aria2的文件下载地址
 
 2. 优化输出
 
@@ -65,7 +67,7 @@ curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh && systemctl enab
 ```jsx
 cd /root
 
-git clone https://github.com/snakexgc/TGlinkToAria2
+git clone https://github.com/hausen1012/TGlinkToAria2
 
 cd TGlinkToAria2
 ```
@@ -87,14 +89,15 @@ API_ID=452525
 API_HASH=esx576f8738x883f3sfzx83
 BOT_TOKEN=55838383:yourtbottokenhere
 MULTI_TOKEN1=55838383:yourfirstmulticlientbottokenhere
-ARIA2=True
-RPC_URLS=http://1.1.1.1
-RPC_PORTS=6800
-RPC_TOKENS=youraria2tocken
 BIN_CHANNEL=-100
 PORT=8080
 FQDN=yourserverip
 HAS_SSL=False
+ARIA2=True
+RPC_URLS=http://1.1.1.1
+RPC_PORTS=6800
+RPC_TOKENS=youraria2tocken
+DOWNLOAD_DIR=/downloads
 ```
 
 对于这些环境变量的意义，我想大家应该都懂，不懂可以看项目的 [readme#setting-up-things](https://github.com/EverythingSuckz/TG-FileStreamBot/tree/python?tab=readme-ov-file#setting-up-things)
