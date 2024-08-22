@@ -66,7 +66,13 @@ async def media_receive_handler(_, m: Message):
                 parse_mode=ParseMode.HTML,
             )
         else:
-            download = aria2.add(stream_link)
+            if Var.DOWNLOAD_DIR:
+                download = aria2.add(
+                    stream_link,
+                    options={"dir": Var.DOWNLOAD_DIR}
+                )
+            else:
+                download = aria2.add(stream_link)
             statue = str(download)
             statue = re.sub(r"\[|<|>]", "", statue)
             try:
