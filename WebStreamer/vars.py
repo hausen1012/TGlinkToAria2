@@ -38,3 +38,4 @@ class Var(object):
     RPC_URLS = str(environ.get("RPC_URLS"))
     RPC_PORTS = int(environ.get("RPC_PORTS"))
     RPC_TOKENS = str(environ.get("RPC_TOKENS"))
+    DOWNLOAD_DIR = str(environ.get("DOWNLOAD_DIR"))
